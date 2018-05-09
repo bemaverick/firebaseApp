@@ -4,11 +4,11 @@ import AppNavigator from "../Navigation/navigationStack";
 import { Login, Logout } from "../Actions/actionTypes";
 
 const ActionForLoggedOut = AppNavigator.router.getActionForPathAndParams(
-  "login"
+  "signUpScreen"
 );
 
 const ActionForLoggedIn = AppNavigator.router.getActionForPathAndParams(
-  "screen1"
+  "homeScreen"
 );
 
 const stateForLoggedOut = AppNavigator.router.getStateForAction(
@@ -46,7 +46,7 @@ const navigationReducer = (state = initialState, action) => {
         stateForLoggedOut: AppNavigator.router.getStateForAction(
           NavigationActions.reset({
             index: 0,
-            actions: [NavigationActions.navigate({ routeName: "login" })]
+            actions: [NavigationActions.navigate({ routeName: "signUpScreen" })]
           })
         )
       };

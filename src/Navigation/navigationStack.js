@@ -1,20 +1,18 @@
 import { StackNavigator } from "react-navigation";
-//import React, { Component } from "react";
-//import { Button, View, TouchableOpacity, StyleSheet, TextInput, FlatList } from "react-native";
 
-import Screen1 from "../Components/screen1";
-import Logout from "../Components/screen2";
-import Login from "../Components/LoginScreen";
+import Home from "../Containers/Home/";
+import NewsItem from "../Containers/NewsItem";
+import SignUp from "../Containers/SignUp";
 
 const navigator = StackNavigator({
-  login: {
-    screen: Login,
+  signUpScreen: {
+    screen: SignUp,
     navigationOptions: {
       title: "Signup"
     },
   },
-  screen1: {
-    screen: Screen1,
+  homeScreen: {
+    screen: Home,
     navigationOptions: {
       title: "Home",
       gesturesEnabled: true,
@@ -22,8 +20,8 @@ const navigator = StackNavigator({
       //headerRight:  <Button title={"Log out"} onPress={() => console.log('124')} />
     }
   },
-  screen2: {
-    screen: Logout,
+  newsItemScreen: {
+    screen: NewsItem,
     navigationOptions: {
       title: "News Item"
     },

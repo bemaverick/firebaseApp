@@ -18,7 +18,6 @@ const login = () => ({
 });
 
 const logout = () => {
-  console.log('logout')
   return {
   type: Logout
 }};
