@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "955091748082",
+    "firebase_url": "https://fir-authspro.firebaseio.com",
+    "project_id": "fir-authspro",
+    "storage_bucket": "fir-authspro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:955091748082:android:cb6a43ea4dc3dd67",
+        "android_client_info": {
+          "package_name": "com.firebaseapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "955091748082-u9247ji1rahbc3vkrpg79i1jl7hqj6pe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAudkDf5E0LV7HjQHQNgLmX8JTpM1GyAGU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
