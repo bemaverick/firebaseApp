@@ -51,20 +51,6 @@ const navigationReducer = (state = initialState, action) => {
         )
       };
 
-    /* Other logic for logging out, more cleaner but unlike the above isn't telling the reader 
-           that navigation is reset, that's why I chose the *reset* one for the article. I prefer
-           this one, what about you?
-        
-        case 'LOGOUT':
-            return { 
-              ...state, 
-              stateForLoggedIn, 
-              stateForLoggedOut
-            }
-            break;
-
-        */
-
     default:
       return {
         ...state,

@@ -18,38 +18,20 @@ class HomeScreen extends Component {
       finishLoading: false,
       newsKeysArr: [],
       newsValue: {}
-
     }
   }
 
   static navigationOptions = ({ navigation }) => {
     const { params = {} } = navigation.state;
     return {
-      title: 'Employees',
       headerLeft: null,
       headerRight: <Button title="Sign Out" onPress={() => params.handleRightHeaderBtn()} />
     };
   };
+
   componentWillMount() {
     this.props.navigation.setParams({ handleRightHeaderBtn: this.logout });
   }
-
-  logout = () =>  {
-    this.props.logout();
-  };
-
-
-
-
-  navigate = (item) => {
-    const navigateToNewsItem= NavigationActions.navigate({
-      routeName: "newsItemScreen",
-      params: { item: this.state.newsValue[item] }
-    });
-    this.props.navigation.dispatch(navigateToNewsItem);
-  };
-
-
 
   componentDidMount() {
     newsBase.on('value', (childrenSnapshot) => {
@@ -61,6 +43,19 @@ class HomeScreen extends Component {
     })
   }
 
+
+
+  logout = () =>  {
+    this.props.logout();
+  };
+
+  navigate = (item) => {
+    const navigateToNewsItem= NavigationActions.navigate({
+      routeName: "newsItemScreen",
+      params: { item: this.state.newsValue[item] }
+    });
+    this.props.navigation.dispatch(navigateToNewsItem);
+  };
 
 
 
@@ -106,7 +101,6 @@ class HomeScreen extends Component {
         </View>
       )
     }
-
   };
 
   markNews = (item) => {
@@ -136,8 +130,6 @@ class HomeScreen extends Component {
     )
   }
 }
-
-
 
 
 

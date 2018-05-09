@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
-import { connect } from "react-redux";
-import { logout } from "./../../Actions/actionCreator";
+import { Text, View,  ScrollView } from "react-native";
 
 import styles from "./styles"
 
@@ -21,23 +19,15 @@ class NewsItemScreen extends Component {
               {this.props.navigation.state.params.item.description}
             </Text>
           </View>
-          <TouchableOpacity
-            onPress={this.props.logout}
-          >
-            <Text style={{ color: "black", fontSize: 22 }}>Logout</Text>
-          </TouchableOpacity>
         </ScrollView>
       </View>
     )
   }
 }
 
-const mapDispatchToProps = {
-  logout
-};
 
-const NewsItem = connect(null, mapDispatchToProps)(NewsItemScreen);
 
-export default NewsItem;
+
+export default NewsItemScreen;
 
 

@@ -17,7 +17,6 @@ const navigator = StackNavigator({
       title: "Home",
       gesturesEnabled: true,
       headerLeft: null,
-      //headerRight:  <Button title={"Log out"} onPress={() => console.log('124')} />
     }
   },
   newsItemScreen: {
