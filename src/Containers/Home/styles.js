@@ -12,8 +12,6 @@ const styles = StyleSheet.create({
 
   },
 
-
-
   newsSeparator: {
     height: 10,
     backgroundColor: '#F7F7F7',

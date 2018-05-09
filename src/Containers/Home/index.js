@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Text, View, FlatList, ActivityIndicator, Button } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
-import { incrementAction, decrementAction } from "./../../Actions/actionCreator";
+
 import { logout } from "./../../Actions/actionCreator";
 
 
@@ -21,9 +21,25 @@ class HomeScreen extends Component {
 
     }
   }
-  static navigationOptions = {
-    headerRight: <Button title={"Sign Out"} onPress={() => console.log(this)} />
+
+  static navigationOptions = ({ navigation }) => {
+    const { params = {} } = navigation.state;
+    return {
+      title: 'Employees',
+      headerLeft: null,
+      headerRight: <Button title="Sign Out" onPress={() => params.handleRightHeaderBtn()} />
+    };
   };
+  componentWillMount() {
+    this.props.navigation.setParams({ handleRightHeaderBtn: this.logout });
+  }
+
+  logout = () =>  {
+    this.props.logout();
+  };
+
+
+
 
   navigate = (item) => {
     const navigateToNewsItem= NavigationActions.navigate({
@@ -123,18 +139,12 @@ class HomeScreen extends Component {
 
 
 
-const mapStateToProps = state => ({
-  counterCount: state.CounterReducer.counter,
-  counterString: state.CounterReducer.counterString
-});
+
 
 const mapDispatchToProps = {
   logout,
-  incrementAction,
-  decrementAction
 };
 
-
-const Home = connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+const Home = connect(null, mapDispatchToProps)(HomeScreen);
 
 export default Home;

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {View, TextInput, TouchableOpacity} from "react-native";
+import {View, TextInput, TouchableOpacity, Text} from "react-native";
 
 import styles from './styles'
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -19,41 +19,57 @@ class CustomInput extends Component {
   };
 
   render() {
+    let invalidMessage = (
+      <Text style={styles.message}>{this.props.validateText}</Text>
+    );
 
     return (
-      <View style={styles.inputWrap}>
-        <View style={styles.inputIconBlock}>
-          <Icon name={this.props.iconName} size={27} color="#938987" />
-        </View>
-        <View style={styles.inputBlock}>
-          <TextInput
-            style={styles.inputStyle}
-            onChangeText={
-              (text) => this.props.onChangeText(text)
+      <View>
+        <View style={styles.inputWrap}>
+          <View style={styles.inputIconBlock}>
+            <Icon name={this.props.iconName} size={27} color="#938987" />
+          </View>
+          <View style={[
+            styles.inputBlock,
+            this.props.valid ? null : {borderBottomColor: 'red'}]}>
+            <TextInput
+              style={styles.inputStyle}
+              onChangeText={
+                (text) => this.props.onChangeText(text)
+              }
+              secureTextEntry={this.state.secureTextEntry}
+              keyboardType={this.props.keyboardType ? this.props.keyboardType : 'default'}
+              placeholder={this.props.placeholderText}
+              placeholderTextColor={'#938987'}
+              underlineColorAndroid={'transparent'}
+              value={this.props.text}
+            />
+
+            {
+              this.props.secureTextEntry ?
+                <TouchableOpacity
+                  onPress={() => this.displayText()}
+                  style={styles.showTextBtn}>
+                  <View style={styles.circleWrap}>
+                    <Icon name={'md-help'} size={20} color="#938987" />
+                  </View>
+
+                </TouchableOpacity>
+                :
+                null
             }
-            secureTextEntry={this.state.secureTextEntry}
-            keyboardType={this.props.keyboardType ? this.props.keyboardType : 'default'}
-            placeholder={this.props.placeholderText}
-            placeholderTextColor={'#938987'}
-            underlineColorAndroid={'transparent'}
-            value={this.props.text}
-          />
-          {
-            this.props.secureTextEntry ?
-            <TouchableOpacity
-              onPress={() => this.displayText()}
-              style={styles.showTextBtn}>
-              <View style={styles.circleWrap}>
-                <Icon name={'md-help'} size={20} color="#938987" />
-              </View>
 
-            </TouchableOpacity>
-            :
-            null
-          }
-
+          </View>
         </View>
+        {
+          this.props.valid ?
+            null
+            :
+            invalidMessage
+
+        }
       </View>
+
     );
   }
 }

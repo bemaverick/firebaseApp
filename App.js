@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, StyleSheet} from 'react-native';
 
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/es/integration/react';
@@ -10,13 +10,27 @@ import configureStore from "./store";
 const { store, persistor } = configureStore();
 
 export default class App extends Component {
+
     render() {
-        return (
+      let loading = (
+        <View style={styles.container}>
+          <Text>Loading...</Text>
+        </View>
+      );
+      return (
             <Provider store={store}>
-                <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
+                <PersistGate loading={loading} persistor={persistor}>
                     <AppNavigation />
                 </PersistGate>
             </Provider>
         );
     }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+});

@@ -6,7 +6,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/es/storage";
 
-import counterReducer from "./src/Reducers/counterReducer";
+
 import NavigationReducer from "./src/Reducers/navigationReducer";
 import loginReducer from "./src/Reducers/loginReducer";
 
@@ -24,7 +24,7 @@ const config1 = {
 
 // Object of all the reducers for redux-persist
 const reducer = {
-  counterReducer,
+
   NavigationReducer,
   loginReducer
 };
@@ -33,12 +33,11 @@ const reducer = {
 // const rootReducer = persistCombineReducers(config, reducer)
 
 // We are only persisting the counterReducer and loginRducer
-const CounterReducer = persistReducer(config, counterReducer);
+
 const LoginReducer = persistReducer(config1, loginReducer);
 
 // combineReducer applied on persisted(counterReducer) and NavigationReducer
 const rootReducer = combineReducers({
-  CounterReducer,
   NavigationReducer,
   LoginReducer
 });

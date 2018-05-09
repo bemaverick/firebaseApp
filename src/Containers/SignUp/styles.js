@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    paddingBottom: 100,
+    paddingBottom: '20%',
 
   },
   roundedBtnStyle: {

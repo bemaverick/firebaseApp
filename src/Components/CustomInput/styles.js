@@ -44,6 +44,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: '#938987'
+  },
+  message: {
+    color: '#f00',
+    fontSize: 11,
+    paddingLeft: 50,
+    paddingTop: 5,
   }
 });
 export default styles
