@@ -4,6 +4,9 @@ import { Text, View, TouchableOpacity,  TextInput, FlatList } from "react-native
 import { login } from "./../../Actions/actionCreator";
 import firebase from "react-native-firebase";
 
+import CustomInput from './../../Components/CustomInput'
+
+
 import styles from "./styles"
 
 
@@ -61,58 +64,40 @@ class SignUpScreen extends Component {
         });
     };
 
+  handleInputEntering = (type, text) => {
+    this.setState({[type]: text}, () => {
+      console.log(this.state)
+    })
+  };
 
   render() {
     return (
       <View style={styles.mainContainer}>
         <View style={styles.formBlock}>
-          <View style={styles.inputWrap}>
-            <View style={styles.inputIconBlock}>
-              <Text>&#128231;</Text>
-            </View>
-            <View style={styles.inputBlock}>
-              <TextInput
-                style={styles.inputStyle}
-                onChangeText={
-                  (email) => this.setState({email})
-                }
-                keyboardType={'email-address'}
-                placeholder={'E-Mail'}
-                placeholderTextColor={'#938987'}
-                underlineColorAndroid={'transparent'}
-                value={this.state.email}
-              />
-            </View>
+          <View style={styles.mb20}>
+            <CustomInput
+              secureTextEntry={false}
+              placeholderText={'E-Mail'}
+              keyboardType={'email-address'}
+              onChangeText={(text) => this.handleInputEntering('email', text)}
+              text={this.state.email}
+              iconName={'ios-mail-outline'}
+            />
           </View>
 
-          <View style={styles.inputWrap}>
-            <View style={styles.inputIconBlock}>
-              <Text>&#128231;</Text>
-            </View>
-            <View style={styles.inputBlock}>
-              <TextInput
-                style={styles.inputStyle}
-                onChangeText={
-                  (password) => this.setState({password})
-                }
-                keyboardType={'email-address'}
-                placeholder={'Password'}
-                secureTextEntry={true}
-                placeholderTextColor={'#938987'}
-                underlineColorAndroid={'transparent'}
-                value={this.state.password}
-              />
-            </View>
-          </View>
+
+          <CustomInput
+            secureTextEntry={true}
+            placeholderText={'Password'}
+            onChangeText={(text) => this.handleInputEntering('password', text)}
+            text={this.state.password}
+            iconName={'ios-lock-outline'}
+          />
         </View>
-
-
-
           <View style={styles.buttonWrap}>
             <TouchableOpacity
               onPress={() => this.onRegister()}
-              style={styles.roundedBtnStyle}
-            >
+              style={styles.roundedBtnStyle}>
               <Text style={styles.roundedBtnText}>Sign Up</Text>
             </TouchableOpacity>
           </View>

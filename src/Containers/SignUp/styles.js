@@ -33,29 +33,12 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
 
-
-  inputWrap: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  inputIconBlock: {
-    width: 50,
-    alignItems: 'center'
-  },
-  inputBlock: {
-    height: 45,
-    justifyContent: 'center',
-    borderBottomColor: '#ededed',
-    borderBottomWidth: 2,
-    flex: 1
-  },
-  inputStyle: {
-    fontSize: 20,
-   // color: Colors.textBlackBold,
-    color: '#000'
-
+  mb20: {
+    marginBottom: 20
   }
+
+
+
 
 });
 export default styles
