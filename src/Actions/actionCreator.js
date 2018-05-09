@@ -17,8 +17,10 @@ const login = () => ({
   type: Login
 });
 
-const logout = () => ({
+const logout = () => {
+  console.log('logout')
+  return {
   type: Logout
-});
+}};
 
 export { incrementAction, decrementAction, login, logout };

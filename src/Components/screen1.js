@@ -1,71 +1,58 @@
 import React, { Component } from "react";
-import { Text, View, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
+import { Text, View, FlatList, TouchableOpacity, ActivityIndicator, Button } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { incrementAction, decrementAction } from "../Actions/actionCreator";
+import { logout } from "../Actions/actionCreator";
+
+
+import NewsListItem from './NewsListItem'
+import newsBase from './../Services/DataBaseService'
+
 import styles from './styles';
-import firebase from 'react-native-firebase';
-
-const iosConfig = {
-  clientId: '955091748082-iq3lo0ib0rhi0efi77h296416df6i9nm.apps.googleusercontent.com',
-  appId: '1:955091748082:ios:66abe56dbb0e4b87',
-  apiKey: 'AIzaSyCpKHZEMC4jN5U-MtyjndJhc1LE-OP_ZGU',
-  databaseURL: 'https://fir-authspro.firebaseio.com',
-  storageBucket: 'fir-authspro.appspot.com',
-  messagingSenderId: '955091748082',
-  projectId: 'fir-authspro',
-  persistence: true
-};
-
-const androidConfig = {
-
-};
-
-const firebaseApp = firebase.initializeApp(
-  iosConfig,
-  'firebaseApp'
-)
-
-const rootRef = firebase.database().ref();
-const newsRef = rootRef.child('news');
 
 class Screen1View extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      finishLoading: false,
       newsKeysArr: [],
       newsValue: {}
 
     }
   }
+  static navigationOptions = {
+    headerRight: <Button title={"Sign Out"} onPress={() => console.log(this)} />
+  };
+
+  navigate = (item) => {
+    const navigateToNewsItem= NavigationActions.navigate({
+      routeName: "screen2",
+      params: { item: this.state.newsValue[item] }
+    });
+    this.props.navigation.dispatch(navigateToNewsItem);
+  };
+
+
 
   componentDidMount() {
-
-    newsRef.on('value', (childrenSnapshot) => {
-      console.log(childrenSnapshot)
-      this.setState({newsKeysArr: childrenSnapshot._childKeys, newsValue: childrenSnapshot._value},() =>{
-        console.log(this.state.newsArr)
+    newsBase.on('value', (childrenSnapshot) => {
+      this.setState({
+        newsKeysArr: childrenSnapshot._childKeys,
+        newsValue: childrenSnapshot._value,
+        finishLoading: true
       })
     })
   }
-  static navigationOptions = {
-    title: "Home",
-    gesturesEnabled: true,
-    headerLeft: null
-  };
 
-  navigate = () => {
-    const navigateToScreen2 = NavigationActions.navigate({
-      routeName: "screen2",
-      params: { name: "Shubhnik" }
-    });
-    this.props.navigation.dispatch(navigateToScreen2);
-  };
+
+
 
   renderFlatList() {
     return (
       <FlatList
         data={this.state.newsKeysArr}
+        extraData={this.state.newsValue}
         removeClippedSubviews={true}
         keyExtractor={(item, i) => JSON.stringify(item)}
         renderItem={this.renderNewsItem}
@@ -76,33 +63,12 @@ class Screen1View extends Component {
   }
 
   renderNewsItem = ({item}) => (
-    <TouchableOpacity
-      onPress={this.navigate}
-      style={styles.newsItem}>
-      <View style={styles.newsItemTextWrap}>
-        <Text numberOfLines={1}>{this.state.newsValue[item].title}</Text>
-      </View>
-      <TouchableOpacity
-        onPress={() => this.markNews(item)}>
-        {
-          this.state.newsValue[item].isChecked ?
-            <View style={styles.checkBoxBlock}>
-              <View style={styles.checkBoxItem}>
-                <Text style={styles.checkIcon}>&#9744;</Text>
-              </View>
-              <View style={[styles.checkBoxItem, styles.checkItem]}>
-                <Text style={styles.checkIcon}>&#10003;</Text>
-              </View>
-            </View>
-            :
-            <View style={styles.checkBoxBlock}>
-              <View style={styles.checkBoxItem}>
-                <Text style={styles.checkIcon}>&#9744;</Text>
-              </View>
-            </View>
-        }
-      </TouchableOpacity>
-    </TouchableOpacity>
+    <NewsListItem
+      title={this.state.newsValue[item].title}
+      isChecked={this.state.newsValue[item].isChecked}
+      goToItem={() => this.navigate(item)}
+      checkItem={() => this.markNews(item)}
+    />
   );
   renderSeparator = () => (
     <View style={styles.newsSeparator}>
@@ -129,16 +95,21 @@ class Screen1View extends Component {
 
   markNews = (item) => {
     if (this.state.newsValue[item].isChecked) {
-
       let updatedItem = {...this.state.newsValue[item], 'isChecked': false};
-      this.setState({
-        newsValue: {
-          ...this.state.newsValue,
-          [item]: updatedItem
-        }
-      })
+      this.updateNews(item, updatedItem)
+    } else {
+      let updatedItem = {...this.state.newsValue[item], 'isChecked': true};
+      this.updateNews(item, updatedItem)
     }
+  };
 
+  updateNews = (item, updatedItem) => {
+    this.setState({
+      newsValue: {
+        ...this.state.newsValue,
+        [item]: updatedItem
+      }
+    })
   };
 
   render() {
@@ -158,9 +129,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+  logout,
   incrementAction,
   decrementAction
 };
+
 
 const Screen1 = connect(mapStateToProps, mapDispatchToProps)(Screen1View);
 

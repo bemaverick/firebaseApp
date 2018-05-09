@@ -47,9 +47,7 @@ class LoginScreen extends Component {
       })
 
   }
-  static navigationOptions = {
-    title: "Signup"
-  };
+
 
     onLogin = () => {
         const { email, password } = this.state;
