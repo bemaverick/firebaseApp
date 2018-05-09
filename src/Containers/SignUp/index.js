@@ -6,9 +6,9 @@ import firebase from "react-native-firebase";
 
 import CustomInput from './../../Components/CustomInput'
 
-
 import styles from "./styles"
 
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 
 class SignUpScreen extends Component {
@@ -73,27 +73,33 @@ class SignUpScreen extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
+        <View style={styles.flex1}/>
+
         <View style={styles.formBlock}>
-          <View style={styles.mb20}>
+          <View>
+            <View style={styles.mb20}>
+              <CustomInput
+                secureTextEntry={false}
+                placeholderText={'E-Mail'}
+                keyboardType={'email-address'}
+                onChangeText={(text) => this.handleInputEntering('email', text)}
+                text={this.state.email}
+                iconName={'ios-mail-outline'}
+              />
+            </View>
             <CustomInput
-              secureTextEntry={false}
-              placeholderText={'E-Mail'}
-              keyboardType={'email-address'}
-              onChangeText={(text) => this.handleInputEntering('email', text)}
-              text={this.state.email}
-              iconName={'ios-mail-outline'}
+              secureTextEntry={true}
+              placeholderText={'Password'}
+              onChangeText={(text) => this.handleInputEntering('password', text)}
+              text={this.state.password}
+              iconName={'ios-lock-outline'}
             />
           </View>
 
 
-          <CustomInput
-            secureTextEntry={true}
-            placeholderText={'Password'}
-            onChangeText={(text) => this.handleInputEntering('password', text)}
-            text={this.state.password}
-            iconName={'ios-lock-outline'}
-          />
-        </View>
+
+
+
           <View style={styles.buttonWrap}>
             <TouchableOpacity
               onPress={() => this.onRegister()}
@@ -101,10 +107,11 @@ class SignUpScreen extends Component {
               <Text style={styles.roundedBtnText}>Sign Up</Text>
             </TouchableOpacity>
           </View>
+        </View>
 
 
 
-
+        <KeyboardSpacer/>
       </View>
     );
   }

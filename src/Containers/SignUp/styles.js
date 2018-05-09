@@ -4,21 +4,23 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     backgroundColor: "white",
-    justifyContent: "center",
-    alignItems: "center"
   },
   formBlock: {
-    marginTop: -50,
+    flex: 1,
+    marginTop: -250,
     paddingLeft: 30,
     paddingRight: 40,
   },
+  flex1: {
+    flex: 1
+  },
   buttonWrap: {
-    position: 'absolute',
-    width: '100%',
+    flex: 1,
+    marginBottom: 0,
     alignItems: 'center',
-    bottom: 80,
-    left:0,
-    zIndex: 100,
+    justifyContent: 'flex-end',
+    paddingBottom: 100,
+
   },
   roundedBtnStyle: {
     height: 55,
